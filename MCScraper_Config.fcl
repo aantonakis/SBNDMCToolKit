@@ -1,0 +1,22 @@
+BEGIN_PROLOG
+
+
+analyzeEvents:
+{
+  module_type:	"MCScraper"
+  PFParticleLabel: "pandora"
+  TrackLabel: "pandoraTrack"
+  ShowerLabel: "pandoraShower"
+  CalorimetryLabel: "pandoraCalo"
+  POTModuleLabel: "generator"
+  VertexModuleLabel: "pandora" 
+  GenieGenLabel: "generator"
+  HitModuleLabel: "gaushit"
+  CosmicTaggerLabel: "pandora"
+  OpT0FinderLabel: "opt0finder"
+  CrumbsResultLabel: "crumbs"
+}
+
+END_PROLOG
+
+

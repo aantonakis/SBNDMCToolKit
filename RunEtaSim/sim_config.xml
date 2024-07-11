@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE project [
+<!ENTITY release "v09_82_01">
+<!ENTITY releasetag "e26:prof">
+<!ENTITY name "simulate_etas">
+<!ENTITY file_type "overlay">
+<!ENTITY run_type "physics">
+<!ENTITY my_version "v2">
+<!ENTITY user "aantonak">
+]>
+
+
+<project name="&name;">
+
+  <!-- Group -->
+  <group>sbnd</group>
+  <!--<filetype>mc</filetype>-->
+
+  <numevents>6000</numevents> <!-- Number of events to process.  If processing an input dataset should be larger than the number of events or -1-->
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>&releasetag;</qual>
+    <!-- v2 puts the eta filter right after the Genie Stage -->
+    <local>/pnfs/sbnd/resilient/users/aantonak/Tarballs/sbnd_code.tar</local>
+  </larsoft>
+
+  <!--<check>1</check>--> <!-- validate the job on the grid -->
+  <copy>0</copy> <!-- Whether files are copied to tape or not; should be zero for test jobs/tutorial, 1 for full submission-->
+
+  <!-- Project stages -->
+  <stage name="eta_sim_reco1_reco2">
+    <fcl>prodgenie_nu_spill_tpc_sbnd_sce_eta.fcl</fcl>
+    <fcl>g4_sce_lite.fcl</fcl>
+    <!--<fcl>wirecell_sim_sp_sbnd.fcl</fcl>-->
+    <fcl>detsim_sce_lite.fcl</fcl>
+    <fcl>reco1_sce.fcl</fcl>
+    <fcl>reco2_sce.fcl</fcl>
+    <outdir>/pnfs/sbnd/scratch/users/aantonak/EtaSim/TestReco1Reco2</outdir>
+    <logdir>/pnfs/sbnd/scratch/users/aantonak/EtaSim/TestReco1Reco2</logdir>
+    <workdir>/pnfs/sbnd/resilient/users/aantonak/EtaSim</workdir>
+    <numjobs>1</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <!--<datatier>generated</datatier>-->
+    <!--<defname>&name;_&release;_&releasetag;_gen</defname>-->
+    <memory>8000</memory>
+    <disk>500GB</disk>
+    <!--<schema>root</schema>-->
+    <jobsub>
+    --expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1
+    --generate-email-summary -l +SingularityImage=\"/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-wn-sl7:latest\" --append_condor_requirements='(TARGET.HAS_SINGULARITY=?=true)'
+    </jobsub>
+
+  </stage>
+
+
+  <!-- file type -->
+  <!--<filetype>&file_type;</filetype>-->
+
+  <!-- run type -->
+  <!--<runtype>&run_type;</runtype>-->
+
+</project>
+
+

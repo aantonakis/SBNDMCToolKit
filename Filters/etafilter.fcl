@@ -1,0 +1,8 @@
+BEGIN_PROLOG
+
+sbnd_etafilter:
+{
+  module_type:              "EtaFilter"
+}
+
+END_PROLOG
